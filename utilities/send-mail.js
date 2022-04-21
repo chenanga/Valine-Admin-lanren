@@ -148,7 +148,7 @@ ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>
   var  accessToken
   axios({
     method: 'get',
-    url: `https://getaccesstoken.blogca.cn/?msg_signature=${process.env.SERVER_WECOMVIRFYSTR}`
+    url: `${process.env.SERVER_WECOMVIRFYSTR}`
 
   })
     .then(function (response) {
