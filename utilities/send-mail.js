@@ -170,9 +170,9 @@ ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>
       method: 'post',
       url: `https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${accessToken}`,
       data : {
-        "touser" : 'ChenAng',
+        "touser" : '',
         "msgtype" : "text",
-        "agentid" : 1000002,
+        "agentid" : ,
         "text" : {
             "content" : `text=咚！「${process.env.SITE_NAME}」上有新评论了&desp=${scContent}`
         }
