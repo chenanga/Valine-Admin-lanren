@@ -153,6 +153,9 @@ ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>
   })
     .then(function (response) {
       if (response.status === 200 && response.data.errcode === 0) {
+        console.log('已获取accesstoken:',response.data.access_token)
+        console.log('已获取accesstoken:',accessToken)
+
         var  accessToken = response.data.access_token
         console.log('已获取accesstoken')
       } else {
