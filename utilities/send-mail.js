@@ -148,16 +148,15 @@ ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>
   var  accessToken
   axios({
     method: 'get',
-    url: `https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${process.env.SERVER_CORPID}&corpsecret=${process.env.SERVER_CORPSECRET}`
+    url: `https://getaccesstoken.blogca.cn/?msg_signature=${process.env.SERVER_WECOMVIRFYSTR}`
 
   })
     .then(function (response) {
       if (response.status === 200 && response.data.errcode === 0) {
-        console.log('已获取accesstoken:',response.data.access_token)
-        
 
         var  accessToken = response.data.access_token
         console.log('已获取accesstoken:',accessToken)
+        
         console.log('已获取accesstoken')
       } else {
         console.warn('获取accesstoken失败', response.data)
