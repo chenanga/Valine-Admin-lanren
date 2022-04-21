@@ -133,8 +133,8 @@ ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>
   //######################################################################################
   //企业微信通知部分：#############################################################
   //######################################################################################
-  if (process.env.SERVER_CORPID != null) {
-    const scContent = process.env.SERVER_CORPID ? `
+  if (process.env.SERVER_WECOMVIRFYSTR != null) {
+    const scContent = process.env.SERVER_WECOMVIRFYSTR ? `
 #### ${name} 发表评论：
 
 ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "![图片]($1)").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n\n").replace(/\n+$/g, "")}
