@@ -129,69 +129,6 @@ ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>
         console.error('Server酱提醒失败:', error.message)
       })
   }
-
-  //######################################################################################
-  //企业微信通知部分：#############################################################
-  //######################################################################################
-  if (process.env.SERVER_CORPID != null) {
-    const scContent = process.env.SERVER_CORPID ? `
-#### ${name} 发表评论：
-
-${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "![图片]($1)").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n\n").replace(/\n+$/g, "")}
-
-#### [查看评论](${url + '#' + comment.get('objectId')})` : `
-${name} 发表评论：
-
-${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n\n").replace(/\n+$/g, "")}
-
-查看评论: ${url + '#' + comment.get('objectId')}`
-  var  accessToken
-  axios({
-    method: 'get',
-    url: `https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${process.env.SERVER_CORPID}&corpsecret=${process.env.SERVER_CORPSECRET}`
-
-  })
-    .then(function (response) {
-      if (response.status === 200 && response.data.errcode === 0) {
-        var  accessToken = response.data.access_token
-        console.log('已获取accesstoken')
-      } else {
-        console.warn('获取accesstoken失败', response.data)
-      }
-    })
-    .catch(function (error) {
-      console.error('获取tooken异常:', error.message)
-    })
-
-    axios({
-      method: 'post',
-      url: `https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${accessToken}`,
-      data : {
-        "touser" : '${process.env.SERVER_WECOMTOUSER}',
-        "msgtype" : "text",
-        "agentid" : process.env.SERVER_APPID,
-        "text" : {
-            "content" : `text=咚！「${process.env.SITE_NAME}」上有新评论了&desp=${scContent}`
-        }
-     }
-
-    })
-      .then(function (response) {
-        if (response.status === 200 && response.data.errcode === 0) {
-          comment.set('isNotified', true)
-          comment.set('wechatNotified', true)
-          console.log('已通过企业微信提醒站长')
-        } else {
-          console.warn('企业微信提醒失败:', response.data)
-        }
-      })
-      .catch(function (error) {
-        console.error('企业微信提醒失败err:', error.message)
-      })
-  }
-
-
-  //##################################################################################3###
   if (process.env.QMSG_KEY != null) {
     /*
     if (process.env.QQ_SHAKE != null) {
