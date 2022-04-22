@@ -149,10 +149,10 @@ ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>
     axios({
       method: 'post',
       url: `${process.env.SERVER_WECOMVIRFYSTR}`,
-      data : {
-            "content" : `text=咚！「${process.env.SITE_NAME}」上有新评论了&desp=${scContent}`
-        
-     }
+      data: `text=咚！「${process.env.SITE_NAME}」上有新评论了&desp=${scContent}`,
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded'
+      }
 
     })
       .then(function (response) {
