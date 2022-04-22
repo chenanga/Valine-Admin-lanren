@@ -145,37 +145,13 @@ ${name} 发表评论：
 ${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n\n").replace(/\n+$/g, "")}
 
 查看评论: ${url + '#' + comment.get('objectId')}`
-  var  accessToken
-  axios({
-    method: 'get',
-    url: `${process.env.SERVER_WECOMVIRFYSTR}`
-
-  })
-    .then(function (response) {
-      if (response.status === 200 && response.data.errcode === 0) {
-
-        var  accessToken = response.data.access_token
-        console.log('已获取accesstoken:',accessToken)
-        
-        console.log('已获取accesstoken')
-      } else {
-        console.warn('获取accesstoken失败', response.data)
-      }
-    })
-    .catch(function (error) {
-      console.error('获取tooken异常:', error.message)
-    })
-
+  
     axios({
       method: 'post',
-      url: `https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${accessToken}`,
+      url: `${process.env.SERVER_WECOMVIRFYSTR}`,
       data : {
-        "touser" : '',
-        "msgtype" : "text",
-        "agentid" : ,
-        "text" : {
             "content" : `text=咚！「${process.env.SITE_NAME}」上有新评论了&desp=${scContent}`
-        }
+        
      }
 
     })
